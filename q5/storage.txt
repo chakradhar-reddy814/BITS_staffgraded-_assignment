@@ -1,0 +1,57 @@
+$ lsblk
+NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+loop0     7:0    0 63.8M  1 loop 
+loop1     7:1    0 91.7M  1 loop 
+loop2     7:2    0 49.3M  1 loop 
+loop3     7:3    0  257G  0 loop 
+loop4     7:4    0   32G  0 loop /workspaces/.codespaces/.persistedshare
+                                 /home/vscode/.minikube
+                                 /var/lib/docker
+                                 /etc/hosts
+                                 /etc/hostname
+                                 /etc/resolv.conf
+                                 /workspaces
+loop5     7:5    0  500M  0 loop 
+sda       8:0    0   30G  0 disk 
+├─sda1    8:1    0 29.9G  0 part /workspaces/.codespaces/shared
+│                                /.codespaces/bin
+│                                /vscode
+│                                /usr/sbin/docker-init
+├─sda14   8:14   0    4M  0 part 
+└─sda15   8:15   0  106M  0 part 
+sdb       8:16   0   45G  0 disk 
+└─sdb1    8:17   0   45G  0 part /tmp
+sdc       8:32   0  512G  0 disk 
+└─sdc1    8:33   0  512G  0 part 
+sr0      11:0    1  628K  0 rom
+
+$ mount | head -5
+overlay on / type overlay (rw,relatime,lowerdir=/var/lib/docker/overlay2/l/FYSNTRWTVBPEDUMWE7EGYCPRWX:/var/lib/docker/overlay2/l/TFH542TSJWODOBMDVGAHUWBJI7:/var/lib/docker/overlay2/l/XVFC5Z3LVCCQFSSI67FCZ3HIPG:/var/lib/docker/overlay2/l/5BKZJN3UJVEODOOBVBLTJ3MS6N:/var/lib/docker/overlay2/l/BJAGCNJAXJI3GQOYNMSDXVYTVP:/var/lib/docker/overlay2/l/IRKK67F444YAWGWGVTHOB2FFXV:/var/lib/docker/overlay2/l/VO6DJXUGTPPBBNQ7T2JLRVQAH6:/var/lib/docker/overlay2/l/7EIXDNIN3IEOFI6YN2H6PEN6VU:/var/lib/docker/overlay2/l/B6L4AKMOB5QYQ4XFGDLQ64QXEG:/var/lib/docker/overlay2/l/HSL5CFUQ5UND4DCXVRIDVG5PYR:/var/lib/docker/overlay2/l/OTCVRZKTDTG7N7NLRTW5YGMAU2:/var/lib/docker/overlay2/l/G2RM6EXV6DT6I4VEHZDDQURDHH:/var/lib/docker/overlay2/l/UXCMEEXTPONRMVTI6WR7UFISEE:/var/lib/docker/overlay2/l/D5KZZDPZ5PVN4KGXNGWESEMNKD:/var/lib/docker/overlay2/l/IP4FXG3UU5V6CFGRS4ZHRYSRJC:/var/lib/docker/overlay2/l/SRDFTZF2UDA5OFJXKZHTKZJNXG:/var/lib/docker/overlay2/l/E6AC6U5MYHGQZI7XLFVMOK6SYP:/var/lib/docker/overlay2/l/KFPZ46SEJDRLFDBI5N5VDPVXXI:/var/lib/docker/overlay2/l/3WHYMHVUNNK32DS6WSK3Y2C3NM:/var/lib/docker/overlay2/l/RAOTUFYH7WQVQW6MIMF4CZQZXF:/var/lib/docker/overlay2/l/7KTIRH6MNODCRDEJMTD6DCK7AF:/var/lib/docker/overlay2/l/6MIQKY4LHMLU2OBVE4QWOWBGOG:/var/lib/docker/overlay2/l/KLISC5YUOZEE6BEPAINOXO7BQ3:/var/lib/docker/overlay2/l/RPWUXYRI2R3BTJPBMITQLDQU6V:/var/lib/docker/overlay2/l/ZLXAE6VBZURHBVLYVG6SCW7BDK:/var/lib/docker/overlay2/l/LNOXFRL72JV7KKOP7I5EPM3P34:/var/lib/docker/overlay2/l/MBISG4RYLTZLEJIO5ZYNIM3DCS:/var/lib/docker/overlay2/l/6B4APAATKJQ4ES3NFZ7RQHKQQ5:/var/lib/docker/overlay2/l/BGWWSNP6ORD4O5O5X4IGSRFFVF:/var/lib/docker/overlay2/l/APIPPXFFUUCXLNAEFGC4GJOWDZ:/var/lib/docker/overlay2/l/ZBDOJ3F3NZ2LEYVRAJOUJ3Z6RS:/var/lib/docker/overlay2/l/424JWNSD447XEXLOMW2PUU5NYI:/var/lib/docker/overlay2/l/KL3C2OZXXJJYQUODLUA3CUMI2V:/var/lib/docker/overlay2/l/UM6HR3DAGTMDCFJ2S5DC5SUEOU,upperdir=/var/lib/docker/overlay2/d3454abe9f06d10d6f5f64edf74cf92e13e11513077df0c65284b42807fa3624/diff,workdir=/var/lib/docker/overlay2/d3454abe9f06d10d6f5f64edf74cf92e13e11513077df0c65284b42807fa3624/work,nouserxattr)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev type tmpfs (rw,nosuid,size=65536k,mode=755,inode64)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=666)
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          32G  9.7G   21G  33% /
+tmpfs            64M     0   64M   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/root        29G   24G  5.6G  81% /vscode
+/dev/sdb1        44G  2.5G   40G   6% /tmp
+/dev/loop4       32G  9.7G   21G  33% /workspaces
+
+$ df -i
+Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+overlay        2097152 203098 1894054   10% /
+tmpfs          1016900    213 1016687    1% /dev
+shm            1016900      1 1016899    1% /dev/shm
+/dev/root      3870720 243364 3627356    7% /vscode
+/dev/sdb1      2949120     40 2949080    1% /tmp
+/dev/loop4     2097152 203098 1894054   10% /workspaces
+
+Storage observations:
+- The system contains a root filesystem, a temp filesystem mounted on /tmp, and a workspace mount that is backed by a loop device.
+- Disk usage is moderate but the root filesystem is already showing significant consumption, so cleanup or log rotation is advisable.
+- Inode usage remains comfortably below the limits, so inode exhaustion is not an immediate concern.
+

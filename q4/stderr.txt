@@ -1,0 +1,1 @@
+ls: cannot access '/not_a_real_path': No such file or directory

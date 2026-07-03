@@ -1,0 +1,3 @@
+total 4
+-rw-rw-rw- 1 codespace codespace 16 Jul  3 16:16 app.log
+-rw-rw-rw- 1 codespace codespace  0 Jul  3 16:16 stdout.txt

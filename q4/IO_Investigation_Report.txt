@@ -1,0 +1,71 @@
+$ lsof | head -n 20
+COMMAND     PID   TID TASKCMD        USER   FD      TYPE             DEVICE  SIZE/OFF    NODE NAME
+docker-in     1                 codespace  cwd       DIR               0,45      4096 1101733 /
+docker-in     1                 codespace  rtd       DIR               0,45      4096 1101733 /
+docker-in     1                 codespace  txt       REG                8,1    845272  774629 /usr/sbin/docker-init
+docker-in     1                 codespace    0u      CHR                1,3       0t0      49 /dev/null
+docker-in     1                 codespace    1w     FIFO               0,14       0t0   26022 pipe
+docker-in     1                 codespace    2w     FIFO               0,14       0t0   26023 pipe
+sh            7                 codespace  cwd       DIR               0,45      4096 1101733 /
+sh            7                 codespace  rtd       DIR               0,45      4096 1101733 /
+sh            7                 codespace  txt       REG               0,45    129784 1048830 /usr/bin/dash
+sh            7                 codespace  mem       REG               0,45   2125328 1049464 /usr/lib/x86_64-linux-gnu/libc.so.6
+sh            7                 codespace  mem       REG               0,45    236616 1049444 /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+sh            7                 codespace    0u      CHR                1,3       0t0      49 /dev/null
+sh            7                 codespace    1w     FIFO               0,14       0t0   26022 pipe
+sh            7                 codespace    2w     FIFO               0,14       0t0   26023 pipe
+sshd        213                      root  cwd   unknown                                      /proc/213/cwd (readlink: Permission denied)
+sshd        213                      root  rtd   unknown                                      /proc/213/root (readlink: Permission denied)
+sshd        213                      root  txt   unknown                                      /proc/213/exe (readlink: Permission denied)
+sshd        213                      root NOFD                                                /proc/213/fd (opendir: Permission denied)
+dockerd     257                      root  cwd   unknown                                      /proc/257/cwd (readlink: Permission denied)
+
+$ exec 3<app.log && lsof -p $$ | grep app.log
+bash    36974 codespace    3r   REG    7,4       16 1310807 /workspaces/BITS_staffgraded-_assignment/q4/app.log
+
+$ ls -l /proc/$$/fd | grep app.log
+(exit code 1)
+
+$ ls -l /proc/$$/fd
+total 0
+lr-x------ 1 codespace codespace 64 Jul  3 16:16 0 -> pipe:[993672]
+l-wx------ 1 codespace codespace 64 Jul  3 16:16 1 -> pipe:[1034720]
+l-wx------ 1 codespace codespace 64 Jul  3 16:16 2 -> pipe:[1034721]
+lr-x------ 1 codespace codespace 64 Jul  3 16:16 3 -> /proc/37162/fd
+l-wx------ 1 codespace codespace 64 Jul  3 16:16 6 -> pipe:[1034721]
+
+$ ls -l > stdout.txt
+total 4
+-rw-rw-rw- 1 codespace codespace 16 Jul  3 16:16 app.log
+-rw-rw-rw- 1 codespace codespace  0 Jul  3 16:16 stdout.txt
+
+$ ls /not_a_real_path 2> stderr.txt
+(exit code 2)
+
+$ (ls -l && ls /not_a_real_path) > combined.txt 2>&1
+(exit code 2)
+
+$ ulimit -a
+real-time non-blocking time  (microseconds, -R) unlimited
+core file size              (blocks, -c) unlimited
+data seg size               (kbytes, -d) unlimited
+scheduling priority                 (-e) 0
+file size                   (blocks, -f) unlimited
+pending signals                     (-i) 31749
+max locked memory           (kbytes, -l) 8192
+max memory size             (kbytes, -m) unlimited
+open files                          (-n) 524288
+pipe size                (512 bytes, -p) 8
+POSIX message queues         (bytes, -q) 819200
+real-time priority                  (-r) 0
+stack size                  (kbytes, -s) 8192
+cpu time                   (seconds, -t) unlimited
+max user processes                  (-u) unlimited
+virtual memory              (kbytes, -v) unlimited
+file locks                          (-x) unlimited
+
+$ exec 3<&-
+lr-x------ 1 codespace codespace 64 Jul  3 16:16 0 -> pipe:[993672]
+l-wx------ 1 codespace codespace 64 Jul  3 16:16 1 -> pipe:[1043117]
+l-wx------ 1 codespace codespace 64 Jul  3 16:16 2 -> pipe:[1043118]
+l-wx------ 1 codespace codespace 64 Jul  3 16:16 6 -> pipe:[1043118]

@@ -1,0 +1,34 @@
+$ mkdir -p secure_workspace/{docs,src,logs}
+(exit code 0)
+
+$ touch secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+(exit code 0)
+
+$ ls -ld secure_workspace secure_workspace/*
+drwxr-x---+ 5 codespace codespace 4096 Jul  3 15:39 secure_workspace
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 15:40 secure_workspace/docs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 15:40 secure_workspace/logs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 15:40 secure_workspace/src
+
+$ chmod 750 secure_workspace && chmod 750 secure_workspace/docs secure_workspace/src secure_workspace/logs
+drwxr-x---+ 5 codespace codespace 4096 Jul  3 15:39 secure_workspace
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 15:40 secure_workspace/docs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 15:40 secure_workspace/logs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 15:40 secure_workspace/src
+
+$ chmod 640 secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+-rw-r----- 1 codespace codespace 0 Jul  3 16:16 secure_workspace/docs/plan.txt
+-rw-r----- 1 codespace codespace 0 Jul  3 16:16 secure_workspace/logs/activity.log
+-rw-r----- 1 codespace codespace 0 Jul  3 16:16 secure_workspace/src/app.txt
+
+$ umask
+0022
+
+Ownership and permission summary:
+secure_workspace drwxr-x--- codespace:codespace
+secure_workspace/docs drwxr-x--- codespace:codespace
+secure_workspace/src drwxr-x--- codespace:codespace
+secure_workspace/logs drwxr-x--- codespace:codespace
+secure_workspace/docs/plan.txt -rw-r----- codespace:codespace
+secure_workspace/src/app.txt -rw-r----- codespace:codespace
+secure_workspace/logs/activity.log -rw-r----- codespace:codespace
